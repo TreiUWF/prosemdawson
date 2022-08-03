@@ -9,6 +9,13 @@ site: bookdown::bookdown_site
 # Approval Page {-}
 '`
 
+The Proseminar of Trei Dawson is approved:
+
+Dr. Samantha Seals, PhD, Proseminar Advisor "`r Sys.Date()`"
+
+Dr. Jossy Uvah, PhD, Committee Chair "`r Sys.Date()`"
+
+
 `r if (knitr::is_html_output()) '
 # Table of Contents {-}
 '`
