@@ -74,7 +74,13 @@
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Approval Page</a></li>
 <li class="chapter" data-level="" data-path="table-of-contents.html"><a href="table-of-contents.html"><i class="fa fa-check"></i>Table of Contents</a></li>
-<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i>Abstract</a>
+<ul>
+<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html#objectives"><i class="fa fa-check"></i>Objectives</a></li>
+<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html#results"><i class="fa fa-check"></i>Results</a></li>
+<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#statement-of-problem"><i class="fa fa-check"></i><b>1.1</b> Statement of Problem</a></li>
@@ -92,13 +98,13 @@
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="data-and-methods.html"><a href="data-and-methods.html#analysis-and-results"><i class="fa fa-check"></i><b>2.3</b> Analysis and Results</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>3</b> Conclusion</a>
+<li class="chapter" data-level="3" data-path="conclusion-1.html"><a href="conclusion-1.html"><i class="fa fa-check"></i><b>3</b> Conclusion</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="conclusion.html"><a href="conclusion.html#summary-of-key-findings"><i class="fa fa-check"></i><b>3.1</b> Summary of Key Findings</a></li>
-<li class="chapter" data-level="3.2" data-path="conclusion.html"><a href="conclusion.html#limitations"><i class="fa fa-check"></i><b>3.2</b> Limitations</a></li>
-<li class="chapter" data-level="3.3" data-path="conclusion.html"><a href="conclusion.html#suggestions-for-further-study"><i class="fa fa-check"></i><b>3.3</b> Suggestions for Further Study</a></li>
+<li class="chapter" data-level="3.1" data-path="conclusion-1.html"><a href="conclusion-1.html#summary-of-key-findings"><i class="fa fa-check"></i><b>3.1</b> Summary of Key Findings</a></li>
+<li class="chapter" data-level="3.2" data-path="conclusion-1.html"><a href="conclusion-1.html#limitations"><i class="fa fa-check"></i><b>3.2</b> Limitations</a></li>
+<li class="chapter" data-level="3.3" data-path="conclusion-1.html"><a href="conclusion-1.html#suggestions-for-further-study"><i class="fa fa-check"></i><b>3.3</b> Suggestions for Further Study</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="bibliographyreferences.html"><a href="bibliographyreferences.html"><i class="fa fa-check"></i>Bibliography/References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -120,15 +126,23 @@
             <section class="normal" id="section-">
 <div id="abstract" class="section level1 unnumbered hasAnchor">
 <h1>Abstract<a href="abstract.html#abstract" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Objectives:
-To model a scrubbed rocket launch in reference to a successful or delayed launched from Kennedy Space Center; specifically Launch Complex 39A (LC-39), Cape Canaveral Space Launch Complex 40 (SLC-40), and Cape Canaveral Space Launch Complex 41 (SLC-41) and given rain amounts. This model will help better understand how much rain can affect the ability to launch a rocket on its original launch window day.</p>
-<p>Methods:
-This statistic will be created by a summation of data from the Kennedy Space Center weather page, Space Launch Delta 45, and JSR Launch Vehicle Database. When combined the resulting model of interest will be a Multinomial Logistic Spline Regression. Multinomial for the three distinct outcomes of interest:scrubbed,the launch did not happen on its scheduled day; delayed, the launch happened on its scheduled day but not in its original launch window; successful, launch in its original day in its original launch window. Then spline regression to look at how the probability changes at different ranges of rain amount.</p>
-<p>Results:
-As the amount of rain increase the probability of a scrubbed launch increase in relationship to a successful or delayed launch.</p>
-<p>Conclusion
-In relation to a successful and delayed launch even without rain present the chances of a launch not scrubbing are not better than 40% and if there is any presents of rain then it can be assumed the launch will be scrubbed.</p>
+<div id="objectives" class="section level2 unnumbered hasAnchor">
+<h2>Objectives<a href="abstract.html#objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To model a scrubbed rocket launch in reference to a successful or delayed launched from Kennedy Space Center; specifically Launch Complex 39A (LC-39), Cape Canaveral Space Launch Complex 40 (SLC-40), and Cape Canaveral Space Launch Complex 41 (SLC-41) and given rain amounts. This model will help better understand how much rain can affect the ability to launch a rocket on its original launch window day.</p>
+</div>
+<div id="methods" class="section level2 unnumbered hasAnchor">
+<h2>Methods<a href="abstract.html#methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This statistic will be created by a summation of data from the Kennedy Space Center weather page, Space Launch Delta 45, and JSR Launch Vehicle Database. When combined the resulting model of interest will be a Multinomial Logistic Spline Regression. Multinomial for the three distinct outcomes of interest:scrubbed,the launch did not happen on its scheduled day; delayed, the launch happened on its scheduled day but not in its original launch window; successful, launch in its original day in its original launch window. Then spline regression to look at how the probability changes at different ranges of rain amount.</p>
+</div>
+<div id="results" class="section level2 unnumbered hasAnchor">
+<h2>Results<a href="abstract.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As the amount of rain increase the probability of a scrubbed launch increase in relationship to a successful or delayed launch.</p>
+</div>
+<div id="conclusion" class="section level2 unnumbered hasAnchor">
+<h2>Conclusion<a href="abstract.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In relation to a successful and delayed launch even without rain present the chances of a launch not scrubbing are not better than 40% and if there is any presents of rain then it can be assumed the launch will be scrubbed.</p>
 
+</div>
 </div>
             </section>
 

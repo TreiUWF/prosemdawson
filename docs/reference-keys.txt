@@ -9,7 +9,7 @@ logistic-regression
 spline-model
 multinomial-logistic-spline-regression
 analysis-and-results
-conclusion
+conclusion-1
 summary-of-key-findings
 limitations
 suggestions-for-further-study
