@@ -1,4 +1,6 @@
-# Bibliography/References
+`r if (knitr::is_html_output()) '
+# References {-}
+'`
 
 [1]  NASA. (n.d.). Summary of launch weather criteria for Atlas V/Mars Science. (n.d.). Retrieved June 21, 2022, from https://www.nasa.gov/pdf/605813main_Atlas-V_MSL_Weather_Criteria.pdf 
 

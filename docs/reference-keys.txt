@@ -16,4 +16,3 @@ conclusion
 summary-of-key-findings
 limitations
 suggestions-for-further-study
-bibliographyreferences
