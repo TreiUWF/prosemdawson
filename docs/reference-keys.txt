@@ -1,6 +1,3 @@
-approval-page
-table-of-contents
-abstract
 introduction
 statement-of-problem
 relevance-of-problem

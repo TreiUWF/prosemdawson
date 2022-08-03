@@ -4,9 +4,14 @@ author: "Trei Dawson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
-# Approval Page
+`r if (knitr::is_html_output()) '
+# Approval Page {-}
+'`
 
-# Table of Contents
+`r if (knitr::is_html_output()) '
+# Table of Contents {-}
+'`
+
 
 Approval Page
 
@@ -48,8 +53,10 @@ Abstract
 
 Bibliography/References
 
+`r if (knitr::is_html_output()) '
+# Abstract {-}
+'`
 
-# Abstract
 
 Objectives: 
 To model a scrubbed rocket launch in reference to a successful or delayed launched from Kennedy Space Center; specifically Launch Complex 39A (LC-39), Cape Canaveral Space Launch Complex 40 (SLC-40), and Cape Canaveral Space Launch Complex 41 (SLC-41) and given rain amounts. This model will help better understand how much rain can affect the ability to launch a rocket on its original launch window day.
@@ -62,19 +69,4 @@ As the amount of rain increase the probability of a scrubbed launch increase in 
 
 Conclusion
 In relation to a successful and delayed launch even without rain present the chances of a launch not scrubbing are not better than 40% and if there is any presents of rain then it can be assumed the launch will be scrubbed.
-
-# Introduction
-
-## Statement of Problem
-In this project, we will create a statistic to estimate how the amount of rain affects the likelihood of having a scrubbed in comparison to a successful or delayed launch from  Kennedy Space Center Launch Complex 39A, Cape Canaveral Space Launch Complex 40, and Cape Canaveral Space Launch Complex 41. Note that the undermost launches the launch weather criteria do not specifically state precipitation restrictions [1][2][3]. To gather the rain amount for this project we downloaded the historical data from the publicly available Spaceport Weather Archive website [SWA]. Some of the measured rain amount does seem questionable because of the unit of measurement provided is in inches rather than millimeters leading to a lose in accuracy due to the larger scale of an inch over millimeter. To find the launch records I got in touch with Space Launch Delta 45 public affairs. From there, the director of History and Heritage, Dr. Charles D. Dusch, was only able to get records of successful launches and not scrubbed or delayed. To get the last piece of information I turned to the JSR Launch Vehicle Database [JSR]. This website gave the need scrubbed launch information and with a combination of successful launch and scrubbed launch data we were able to make the delayed launch data. This was done by looking at the data and platform of each launch and if there was a successful and scrubbed launch with the same criteria it was conclude to be a delayed launch.
-
-
-## Relevance of Problem
-Anything to do with space is expensive, with a single launch ranging from 60 million to billions of dollars with delays costing hundreds of thousands to millions of dollars. And a scrubbed launch can be just delayed to later that day to months depending on the required launch window.In high school, I participated in the Air Force Association StellarXplorers Nation Space Design Competition, this competition had group design and budget rocket launches with one of the challenges being estimating how much leftover budget should be left in the case of a scrubbed launch. The most common reason for a scrubbed launch is weather and have naturally wondered if it is possible to mitigate launch scrubs by the use of past weather data to save money. The scenarios used in the competition were real launch programs and thus the budgeting for launch scrubs is real and can cost hundreds of thousands to millions depending on the platform and delay.
-
-
-
-## Literature review
-With nearly 100 launches in the past 10 years, the Falcon 9 is one of the most commonly launched platforms from LC-39 and SLC-40. The platform’s launch weather criteria include conditions relating to sustained wind, lightning, disturbed weather clouds, and field mill voltage but lack any direct specifications on precipitation[2]. A 2004 study in the pacific took a look at the relationship between wind speed and precipitation and concluded that “there is a significant correlation between wind speed and precipitation [6]. As most Floridians know any light rain can quickly turn into a single-cell thunderstorm also known as “popcorn” that last as short time but hit the criteria need to scrub or delay a launch. Another study we looked at was a 1991 study "Weather factors affecting rocket operations". This study looked at weather conditions on rockets at different altitudes and is significant here because whether it was wind, lightning, or turbulence a reoccurring factor in these conditions was rain and precipitation [9]. This is important because rain and precipitation is not necessarily part of the weather launch criteria. If we can link rain and precipitation with the weather conditions that are a part of the launch weather criteria, then it can be assumed if present then there be an increase scrubbed launch.
-
 
