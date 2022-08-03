@@ -19,10 +19,11 @@
 
 [6] Back, L. E., & Bretherton, C. S. (2005). The relationship between wind speed and precipitation in the pacific itcz. Journal of Climate, 18(20), 4317–4328. https://doi.org/10.1175/jcli3519.1 
 
+[7] Kingwell, J., Shimizu, J., Narita, K., Kawabata, H., &amp; Shimizu, I. (1991). Weather factors affecting rocket operations: A review and case history. Bulletin of the American Meteorological Society, 72(6), 778–793. https://doi.org/10.1175/1520-0477(1991)072&lt;0778:wfaroa&gt;2.0.co;2 
 
-[7] James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). 7.4 Regression Splines. In An introduction to statistical learning: With applications in R (pp. 295–301). essay, Springer. 
+[8] James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). 7.4 Regression Splines. In An introduction to statistical learning: With applications in R (pp. 295–301). essay, Springer. 
 
+[9] Seals S 2021, Logistic Regression, lecture notes, Nominal Logistic Regression, University of West Florida, 6 June 2022
 
-[8] Brown, M. (2022, January 31). SpaceX's latest launch was delayed for a 4th time for the strangest reason. Inverse. Retrieved July 13, 2022, from https://www.inverse.com/innovation/spacex-obstacle 
+[10] Brown, M. (2022, January 31). SpaceX's latest launch was delayed for a 4th time for the strangest reason. Inverse. Retrieved July 13, 2022, from https://www.inverse.com/innovation/spacex-obstacle 
 
-[9] Kingwell, J., Shimizu, J., Narita, K., Kawabata, H., &amp; Shimizu, I. (1991). Weather factors affecting rocket operations: A review and case history. Bulletin of the American Meteorological Society, 72(6), 778–793. https://doi.org/10.1175/1520-0477(1991)072&lt;0778:wfaroa&gt;2.0.co;2 

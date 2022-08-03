@@ -9,12 +9,39 @@ site: bookdown::bookdown_site
 # Approval Page {-}
 '`
 
-The Proseminar of Trei Dawson is approved:
+The Proseminar of Trei Dawson is approved:\
+\
+\
+\
+\
 
-Dr. Samantha Seals, PhD, Proseminar Advisor "`r Sys.Date()`"
 
-Dr. Jossy Uvah, PhD, Committee Chair "`r Sys.Date()`"
+Dr. Samantha Seals, PhD, Proseminar Advisor `r Sys.Date()`\
+\
+\
+\
+\
 
+
+
+Dr. Jossy Uvah, PhD, Committee Chair `r Sys.Date()`\
+\
+\
+\
+\
+
+
+Accepted for the Department/Division:\
+\
+\
+\
+\
+
+Dr. Jia Liu, PhD, Chair `r Sys.Date()`\
+\
+\
+\
+\
 
 `r if (knitr::is_html_output()) '
 # Table of Contents {-}
@@ -61,31 +88,22 @@ Abstract
 
 Bibliography/References
 
-`r if (knitr::is_html_output()) '
-# Abstract {-}
-'`
 
-`r if (knitr::is_html_output()) '
+# Abstract {-}
+
 ## Objectives  {-}
-'`
 
 To model a scrubbed rocket launch in reference to a successful or delayed launched from Kennedy Space Center; specifically Launch Complex 39A (LC-39), Cape Canaveral Space Launch Complex 40 (SLC-40), and Cape Canaveral Space Launch Complex 41 (SLC-41) and given rain amounts. This model will help better understand how much rain can affect the ability to launch a rocket on its original launch window day.
 
-`r if (knitr::is_html_output()) '
 ## Methods  {-}
-'`
 
 This statistic will be created by a summation of data from the Kennedy Space Center weather page, Space Launch Delta 45, and JSR Launch Vehicle Database. When combined the resulting model of interest will be a Multinomial Logistic Spline Regression. Multinomial for the three distinct outcomes of interest:scrubbed,the launch did not happen on its scheduled day; delayed, the launch happened on its scheduled day but not in its original launch window; successful, launch in its original day in its original launch window. Then spline regression to look at how the probability changes at different ranges of rain amount.
 
-`r if (knitr::is_html_output()) '
 ## Results  {-}
-'`
 
 As the amount of rain increase the probability of a scrubbed launch increase in relationship to a successful or delayed launch.
 
-`r if (knitr::is_html_output()) '
 ## Conclusion  {-}
-'`
 
 In relation to a successful and delayed launch even without rain present the chances of a launch not scrubbing are not better than 40% and if there is any presents of rain then it can be assumed the launch will be scrubbed.
 

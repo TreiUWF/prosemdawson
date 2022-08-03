@@ -142,8 +142,8 @@
 <h2><span class="header-section-number">2.2</span> Models and Assumptions<a href="data-and-methods.html#models-and-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="logistic-regression" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Logistic Regression<a href="data-and-methods.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The first thing we looked at was logistic regression with the outcomes of successful, scrubbed, and delayed launch. When making a logistic model we look at the probability of one event occurring in comparison to another event. For this study the base event was scrubbed launches.
-<span class="math display">\[
+<p>The first thing we looked at was logistic regression with the outcomes of successful, scrubbed, and delayed launch. When making a logistic model we look at the probability of one event occurring in comparison to another event. For this study the base event was scrubbed launches and both models will be create simultaneously.</p>
+<p><span class="math display">\[
 \begin{equation}
 \ln\left(\frac{\pi_j}{\pi_c}\right)=\beta_0+\beta_1X_1+...+\beta_iX_i\tag{1}
 \end{equation}
@@ -153,6 +153,7 @@
 <li><span class="math inline">\(\pi_j\)</span> is the event group</li>
 <li><span class="math inline">\(\pi_c\)</span> is the reference group</li>
 </ul>
+<p>[8]</p>
 </div>
 <div id="spline-model" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Spline Model<a href="data-and-methods.html#spline-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -182,10 +183,11 @@ y= \beta_0 + \beta_1X_1+...+\beta_iX_i\tag{2}
 0  &amp; \text{otherwise}
 \end{array}
 \right.\]</span></p>
+<p>[9]</p>
 </div>
 <div id="multinomial-logistic-spline-regression" class="section level3 hasAnchor" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Multinomial Logistic Spline Regression<a href="data-and-methods.html#multinomial-logistic-spline-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>With a combination of the multinomail and spline regression we get our model of interest for this study.</p>
+<p>With a combination of the multinomail and spline regression we get our model of interest for this study. Note that when we make the models for this study that they are made simultaneously with scrubbed being the reference and use the same quartile for our knots.</p>
 <p><span class="math display">\[
 \begin{equation}
 \ln\left(\frac{\pi_j}{\pi_c}\right)= \beta_0 + \beta_1X_1+ \beta_2X_2+ \beta_3X_3+\beta_4X_4\tag{3}
@@ -207,7 +209,7 @@ y= \beta_0 + \beta_1X_1+...+\beta_iX_i\tag{2}
 <p>Figure 2.1 Data of Study</p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Figure 2.2 Distribution of Rain amount</p>
-<p>From Figure 2.1 you can see there is a lot of data points at the zero rain amount. To investigate this we created a histogram, Figure 2.2, to look at the distribution of rain amount and concluded there is clearly a lot more zeros in this data set that will be usable to create our knots. When first creating a five number summary with the zeros in the data the 25<sup>th</sup>, 50<sup>th</sup>, and 75<sup>th</sup> percentile were all zeros. With these knots the model essential became a regression model with one slope. Due to this we decided to remove the zeros when assessing the quartiles. The majority of these launches were related to the Falcon 9 launch which is not surprising given the goal of this rocket. The CEO of SpaceX, Elon Musk, has goal with this rocket of being able to launch multiple times a day and currently they are on a very rapid schedule with a record rocket turn around time record of 27 days and record of 16 hours for launching two different rockets [8]. This adds plenty opportunities for scrubbed and delayed launches to stack up on no rain days adding to the excessive no rain data points. With the elimination of the zeros the new quartiles used were 0.019, 0.064, and 0.175 respectfully. The spline models created for this example have been made with with the reference point of scrubbed launches.</p>
+<p>From Figure 2.1 you can see there is a lot of data points at the zero rain amount. To investigate this we created a histogram, Figure 2.2, to look at the distribution of rain amount and concluded there is clearly a lot more zeros in this data set that will be usable to create our knots. When first creating a five number summary with the zeros in the data the 25<sup>th</sup>, 50<sup>th</sup>, and 75<sup>th</sup> percentile were all zeros. With these knots the model essential became a regression model with one slope. Due to this we decided to remove the zeros when assessing the quartiles. The majority of these launches were related to the Falcon 9 launch which is not surprising given the goal of this rocket. The CEO of SpaceX, Elon Musk, has goal with this rocket of being able to launch multiple times a day and currently they are on a very rapid schedule with a record rocket turn around time record of 27 days and record of 16 hours for launching two different rockets [10]. This adds plenty opportunities for scrubbed and delayed launches to stack up on no rain days adding to the excessive no rain data points. With the elimination of the zeros the new quartiles used were 0.019, 0.064, and 0.175 respectfully. The spline models created for this example have been made with with the reference point of scrubbed launches.</p>
 <p><span class="math display">\[x_1 = 1 \text{ if rain }\in (0, 0.019), 0 \text{ otherwise}\]</span>
 <span class="math display">\[x_2 = 1 \text{ if rain } \in (0.020, 0.064), 0 \text{ otherwise}\]</span>
 <span class="math display">\[x_3 = 1 \text{ if rain } \in (0.065, 0.175), 0 \text{ otherwise}\]</span>
@@ -222,7 +224,6 @@ y= \beta_0 + \beta_1X_1+...+\beta_iX_i\tag{2}
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 Figure 2.3</p>
 <p>In figure 2.3 the vertical dotted lines represent the different knots in the model. The first vertical line represents the knot at 0.019; the second vertical line represents 0.064; the third vertical line represents 0.175. From figure 2.3 we can see an interesting occurrence where the the chance of a scrubbed launch decrease from 0.019 inches to 0.064 inches of rain. There does not seem to be a responsible explanation for this other than just a lack of data between the points. Even with this sharp increase in the visual model, the chances of a successful launch with an presence of rain is still less than 50% with anything greater than 0.175 inches practically 0%.</p>
-<p>Probability of Scrubbed versus Launched</p>
 <table>
 <thead>
 <tr class="header">
@@ -257,6 +258,8 @@ Figure 2.3</p>
 <ul>
 <li>Partial F-test: p=0.338</li>
 </ul>
+<p>Table 2.1 Probability of Scrubbed versus Launched</p>
+<p>From Table 2.1 we see that all the confidence intervals for our predictors contains zero as a slope and running the F-test it is confirmed that there is not sufficient evidence to suggest that the rain amount is a significant predictor of the probability of launch being scrubbed compared to successful launch.</p>
 <p><span class="math display">\[
 \begin{equation}
 \ln\left(\frac{\hat{\pi}_{\text{scrub}}}{\hat{\pi}_{\text{delay}}}\right)= -0.94+0.70X_1-0.80X_2+1.60X_3+5.28X_4\tag{5}
@@ -301,6 +304,8 @@ Figure 2.4</p>
 <ul>
 <li>Partial F-test: p=0.338</li>
 </ul>
+<p>Table 2.2 Probability of Scrubbed versus Delayed</p>
+<p>From Table 2.2 we see that all the confidence intervals for our predictors contains zero as a slope and running the F-test it is confirmed that there is not sufficient evidence to suggest that the rain amount is a significant predictor of the probability of launch being scrubbed compared to delayed launch.</p>
 
 </div>
 </div>
