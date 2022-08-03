@@ -23,7 +23,7 @@
 
 [8] James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). 7.4 Regression Splines. In An introduction to statistical learning: With applications in R (pp. 295–301). essay, Springer. 
 
-[9] Seals S 2021, Logistic Regression, lecture notes, Nominal Logistic Regression, University of West Florida, 6 June 2022
+[9] Kleinbaum, D. G. (2014). Applied regression analysis and other multivariable methods. Cengage Learning. 
 
 [10] Brown, M. (2022, January 31). SpaceX's latest launch was delayed for a 4th time for the strangest reason. Inverse. Retrieved July 13, 2022, from https://www.inverse.com/innovation/spacex-obstacle 
 
