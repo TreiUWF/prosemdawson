@@ -1,2 +1,1672 @@
-# The pool of tears
+# Data and Methods
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(gsheet)
+library(tidyverse)
+library(data.table)
+library(splines)
+library(Ecdat)
+library(ggpubr)
+library(dplyr)
+library(npreg)
+require(graphics)
+require(foreign)
+require(nnet)
+library(ggplot2)
+require(reshape2)
+data0111 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1MLLJvmBbDbx4l-rnk7n-qA42glbQE-kA/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+                  
+df_long <- melt(data = data0111, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0211 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-8ON2StIc3bt8R7nm6BrMjWzzo-X2ydo/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0211, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0311 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-LzbnPmFoHUzDeJQlr11XOxDC1sAeuYc/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0311, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0411 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-OR1uxykwswZS15rBsG-YI_M5JY5dscH/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0411, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0511 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-Rz11p4Z4OW79KPbV0OTwW-yqkueatjY/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0511, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0611 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-XuoSsAtk4yOXSsuAhdUhMVINu4yRfSx/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0611, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0711 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-_Z6eyXmATPExcBitmheA2wd64E2Umf0/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0711, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0811 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-g7zI34Tf_Q_8Iz3-kORyClaFMbRh7d7/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0811, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0911 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-i0AqUVQpKlRFAKHcDEJ6m3NXIrk2DWL/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+  
+df_long <- melt(data = data0911, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1011 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-j6AN1NkVpdlec-aqo3BePogdhlhHg-8/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1011, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1111 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1-kYGXQZjbOxMCL8eAq0wFT9LqC4ZPkdw/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+      
+df_long <- melt(data = data1111, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1211 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10-NEeVTlZyV2M-1qKTV1OH-UNXsoKm-I/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1211, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec11 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2011,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0112 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/103n0asbUU9x2zGA_6gvbW1igsazNjlCx/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0112, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0212 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/108a1U36wT1DlaJS30FhqkI5Jfada1Zgn/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0212, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0312 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10CA36yAwFsV6q8lc-dNkkl8EAnNq6z18/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0312, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0412 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10Dc26CRgyNJxM3nyiga2fop-_tGUIyip/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0412, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0512 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10OB1Ex1OI_yCk8Tn70Y6HBtAi2KpaoVO/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0512, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0612 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10UoliyZW-sfstMZlcQHFpV7MGyjE24eg/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0612, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0712 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10YbjXCz_T_bqs5m9o3jerNRSx9BRCi5J/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0712, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0812 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18YgMEf5TkbaHI2r2NlXy4P6di7jh-iU8/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0812, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0912 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10j_Wn3Nmylsl42U_658IjaCwFRaIA9dk/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0912, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1012 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10lMy7TAruiNAkcIv_3Ndk0tTUywULkiz/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1012, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1112 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10lZNgJD5ZImgZp1Vu19TrxXLHjt78xP6/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1112, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1212 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/10qQ0f8IwvSVmnupFHI16rie1aZ6CnYHj/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1212, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec12 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2012,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0113 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/11hLvNP2HFtU53hmOt6GUwQFv-ItyjqVj/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0113, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0213 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/11hpq0SAlhMHHNP1BwFG0JUW70rGPrU8N/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0213, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0313 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/11seauIv6w3uRZQ2NBMl43o4pGBO3SBrp/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0313, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0413 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/11xsACx6LUq0YLiNyIlF4dI-sL-HWcPYM/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0413, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0513 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/122l7QWguTs8-R6aehCOO0v6i26ZGfgJP/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0513, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0613 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/127Psp5qX2Ron62HujPRf4Xk6dwWJXkVG/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0613, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0713 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/128jbgcZBfakWI_ZyGjAQH4U8H8lpYIxp/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0713, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0813 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12A56j_mx0nzl5BcIUveiWfWNCMNoLZzv/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0813, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0913 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12Ef71dGpkjmdgBngQzfE_J6p6eypaihr/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0913, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1013 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12GWypaQslWzPx_9l27U1Y6gtDZ4f9rhg/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1013, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1113 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12GiY6WzlF8S1ESC-0yNL2SLPBXyRJie7/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1113, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1213 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12OveC1KgkJShFOUEYpC_j4m04pcxFNkN/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1213, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec13 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2013,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0114 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12VxK5fkjC9JHvqQp8kTdaz6TkJChAHcY/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0114, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0214 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12WYY8yZDU0jf-B0xUsYL7zsTKV4alPho/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0214, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0314 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12XD8GKHIjLV5QmGuhKxHLJyu7rFsYDcx/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0314, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0414 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12YgDZc3hcTfXdDwR_2CKyWuyQZ_XoDKq/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0414, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0514 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12bgOfoN2J8QSpa03OWGH1fgn02FGfPe8/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0514, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0614 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12eJ8AzntLNZZ0IBFB9d5-wacEP6GuzFX/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0614, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0714 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12j8pu7EvQ_ebft6cHU0bGLjvpFMLW0GE/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0714, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0814 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12q22qj40UEw03zaB5aeebO6RLVxhd4xw/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0814, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0914 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12qYotShHUH3EmWnQb9CDC9jtUt-slTDQ/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0914, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1014 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12rrpGlsGBzKUUYx7DzdGECZVHA7PhEQI/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1014, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1114 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12s9WVNqGAQiI3SEUhag7K-9vQTgOEzmy/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1114, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1214 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12sXl_gE-LteMDlYf2nbxrfQTMrWZGa85/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1214, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec14 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2014,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0115 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12uBq3B5Z2N7s550FZqBTFJd34lJ_0OJN/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0115, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0215 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/12vpwk8VVZVCftQ5zwkZub-H2HXJEMR8c/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0215, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0315 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13-wUglDzZRqyiX0xiHDkv5HeBgAAgfNp/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0315, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0415 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/133iBsKcQhmDNC-Ho4wr1g8X08vi7JeKu/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0415, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0515 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13Cg-osmkfajGgjKvC8CBsiDY6A7LWlE5/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0515, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0615 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13DkIgqvVWMGO8sR_WTQw53FPzgAGm-au/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0615, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0715 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13FMBFVWO4kXR7G7IFEB4JhylVcFHXmcq/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0715, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0815 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13FsBmLYUSXMEUTlcfoOrtUF743dx-MQ7/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0815, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0915 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13JGVCG8KmpfnX2B_RR8APkndiRgUQi-B/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0915, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1015 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13Moz03ZVUZX1NejRWQXqHgWYIJx1MPnX/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1015, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1115 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13RIw2dtQJ9dRm01zOkawoEBQc9Rt5u2J/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1115, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1215 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13SzGWmCNDflNzAyebUrMlQ28-wTuiGTY/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1215, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec15 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2015,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0116 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/17iDSN-5E9KYoRhud0T4b02jJ8zAIHqNd/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0116, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0216 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/17oLYp6O4iUBtSRSDZTEz1_8NKpcc-9C5/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0216, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0316 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/17qyM7PuQJdIPuHoRk3lmyHQqtKuiuVil/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0316, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0416 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/17rv4gjV_lvenJGYJ_TK2Dc0ycQdzwA4G/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0416, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0516 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18-6dUU7aInxK_RNGOrdsVpIUd_nBYVuk/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0516, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0616 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/181YpxYTMSGTkUSfIOXMjD_u-9j_u7_Jb/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0616, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0716 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18CkKDKzNsYYW9AxSPkbK-qPvKWh_DYFa/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0716, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0816 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18PgVHrzD1fkZVBUx_RKlxtMQieSkkfct/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0816, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0916 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18QkemCiGJCC7JCsrBGi8rbDBSO6MQpVH/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0916, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1016 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18RQQza37RFZChVebSkK0WG6BlCdmziJD/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1016, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1116 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18UN1lrBf3wgSo7W0RXHCYxd_ERHBo0I8/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1116, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1216 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/18UV7dSL0ypTK3w-4EEpw5XIvqyx1th3c/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1216, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec16 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2016,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0117 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13TJT_Kq5Vfio0mDN4fS6JV2TUokrswsN/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0117, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0217 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13cMspvaE0fYWdCdCmCeFAxwpPFhVMGm6/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0217, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0317 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13hfl2U1PtVhQ9P-8yfU7bY9xKa3GBvG1/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0317, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0417 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13jhHCH2XrtAbYJ6PT9Dh5uNYXqqFXk3G/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0417, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0517 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13kGSHHnySvelN-BReAfjKZUGqGK9RL3E/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0517, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0617 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/13xVLcPq83L20au5vNdM-kTa3dKtCaZc5/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0617, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0717 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/140LNharURW4Gpg-wSY904AO4u-8KJ04I/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0717, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 7) %>%
+  select(Mill, year, month, day, amt)
+
+data0817 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1464-y5QBhRQd6XnlTqGhT4VycxVqsMOH/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0817, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0917 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14DPFeI14UmZ416KNVzoMJwzpM6MANHjj/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0917, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1017 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14KIqnh5hxipGOpBucbNnrxrnd-DH_2mG/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1017, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1117 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14LK5HSqoyNw1-mOkA_tzF0JhKvXt9hNG/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1117, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1217 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14UJgavVK-kVBU0hb4y7io7N7mHFa2JFs/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1217, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec17 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2017,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0118 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14X8_EJm8DKVdK3RexltwxkE32OwOEyXb/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0118, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0218 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14cWjPn3SZXQ9PGcnsLBA-iYhPq-itc4J/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0218, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0318 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14rUTTYwl2m4cbCi9DvxvkYlvSwsYbtNd/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0318, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0418 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/14sPkMP_0t9Pnlj66qqe4yXeHSlei0muf/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0418, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0518 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15DeE7e59xu9ZO2NEgr2AEZZmJ6Ys3t0m/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0518, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0618 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15E2BxH5ZLkfJyBWC26RFyRH8cOluede1/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0618, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0718 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15MMtJNZhykJi25k7QxLq4V_aDmTrr2Qv/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0718, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0818 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15Mor5LPHw8cwNZBOfhSrPhxkz65RsFUF/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0818, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0918 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15Nx9prUf0UAXVAV5ml9jsD6NpihFO9aG/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0918, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1018 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15S1Z4x06DYKhw-CfEF_BSO-smKMXbsgG/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1018, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1118 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15TNiyAUoQbpp0QPhtnYcyvRzS4KalkNe/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1118, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1218 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15TftMzx-sTzhlvQBFG342YwmcZquSDzj/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1218, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec18 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2018,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0119 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15Ugo15m9QFyP2mp-AZKzqHOmsjisQPHn/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0119, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0219 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15XQBCiAD4_suFcAYtwP2uRIonDqfylqN/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0219, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0319 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15XnAGD8d_DSSE7d8Sws0nbf_5FJvHefG/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0319, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0419 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15Y5tMCtaWzHbafvzaMfSMqpkO3ci5fEa/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0419, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0519 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15YiOUuELorVc7iqOKljP-ld7HHmwOdCy/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0519, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0619 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15dJ0qXoy0hIV8yO5IS-qpf66vbfmt1G0/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0619, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0719 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15fqf4JvquDH9_kRYiwkbTTzLmgbLgUF9/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0719, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0819 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15isV_CUu3YizYjxxql6TUvABbR_yY5O_/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0819, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0919 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15luc4T_EZwlyXxFoG1eu8HBNlO-d23OY/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0919, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1019 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15mF_-Gthd7JZUt3UXAoqlKHNKeU3RJqH/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1019, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1119 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15uJvin8rIM9JSfmJVxaTEf2CBrobMq84/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1119, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+data1219 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15x5wwC6hsbR9kLlLTCLJxVVZcN-37z8A/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1219, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec19 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2019,
+         month = 12) %>% 
+  select(Mill, year, month, day, amt)
+
+data0120 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/15xMcifpY-4WpGaCgBkbhEBQs9WbLeAi4/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0120, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jan20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 1) %>% 
+  select(Mill, year, month, day, amt)
+
+data0220 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/168uR7ZB1GjQiHbLqNCX4J3WevDqStEvp/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0220, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+feb20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 2) %>% 
+  select(Mill, year, month, day, amt)
+
+data0320 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16FBUNDmAun04qhyoifzFZGxbrQTkR-wI/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0320, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+mar20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 3) %>% 
+  select(Mill, year, month, day, amt)
+
+data0420 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16NkxPlscmdJlaoOgQMX7S9mIstNnNnob/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0420, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+apr20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 4) %>% 
+  select(Mill, year, month, day, amt)
+
+data0520 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16OYDv1rWiK7DTigdF8L7TQ85eI-I9ha0/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0520, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+may20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 5) %>% 
+  select(Mill, year, month, day, amt)
+
+data0620 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16R68fVmqLv3wtRJdDmH3_ZweITVTybHR/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0620, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jun20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 6) %>% 
+  select(Mill, year, month, day, amt)
+
+data0720 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16WZFvuy82_EJg3aCV1M6Cf7M0PJmhLOL/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0720, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+jul20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 7) %>% 
+  select(Mill, year, month, day, amt)
+
+data0820 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16Z50nTqi4CwucRLAydCWNN6eSGAz6OA2/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0820, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+aug20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 8) %>% 
+  select(Mill, year, month, day, amt)
+
+data0920 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16kq-N-qWd3aQPoJJpwyrQGD_BupqEuPv/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data0920, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+sep20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 9) %>% 
+  select(Mill, year, month, day, amt)
+
+data1020 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16lM-y6oPjivd15A9MqRDd1vjwFU1EoYe/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1020, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+oct20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 10) %>% 
+  select(Mill, year, month, day, amt)
+
+data1120 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/16tLbzIzG7SX-IFgms9KW47z_a8dvotaD/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = data1120, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+nov20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 11) %>% 
+  select(Mill, year, month, day, amt)
+
+dec1220 <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/172EWirUUK37VFt1ZbUvZ73ZJ86e_SVcZ/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+df_long <- melt(data = dec1220, 
+                id.vars = c("Mill"),
+                variable.name = "day",
+                value.name = "amt")
+
+dec20 <- df_long %>% filter(Mill %in% c(13)) %>%
+  mutate(year = 2020,
+         month = 12) %>%
+  select(Mill, year, month, day, amt)
+
+###Combine all rain data
+allrain <- bind_rows(jan11, feb11, mar11, apr11, may11,jun11, jul11, aug11, sep11, oct11, nov11, dec11,
+                    jan12, feb12, mar12, apr12, may12,jun12, jul12, aug12, sep12, oct12, nov12, dec12,
+                    jan13, feb13, mar13, apr13, may13,jun13, jul13, aug13, sep13, oct13, nov13, dec13,
+                    jan14, feb14, mar14, apr14, may14,jun14, jul14, aug14, sep14, oct14, nov14, dec14,
+                    jan15, feb15, mar15, apr15, may15,jun15, jul15, aug15, sep15, oct15, nov15, dec15,
+                    jan16, feb16, mar16, apr16, may16,jun16, jul16, aug16, sep16, oct16, nov16, dec16,
+                    jan17, feb17, mar17, apr17, may17,jun17, jul17, aug17, sep17, oct17, nov17, dec17,
+                    jan18, feb18, mar18, apr18, may18,jun18, jul18, aug18, sep18, oct18, nov18, dec18,
+                    jan19, feb19, mar19, apr19, may19, jun19, jul19, aug19, sep19, oct19, nov19, dec19,
+                    jan20, feb20, mar20, apr20, may20,jun20, jul20, aug20, sep20, oct20, nov20, dec20
+                    )
+
+###All launch data
+launch <- as.data.table(gsheet2tbl("https://docs.google.com/spreadsheets/d/1Aes3f7ztalE7j3xiKOMqL9TbaaX15fWn/edit?usp=sharing&ouid=111963324644527257571&rtpof=true&sd=true"))
+
+launch <- launch %>% mutate(day = as.numeric(day))
+allrain <- allrain %>% mutate(day = as.numeric(day))
+
+###Combine launch and rain data
+joined <- full_join(allrain, launch, by = c("year", "month", "day"))
+
+###removing empty data points
+joined <- na.omit(joined)
+
+test <- joined %>%
+  mutate (prob20 = ifelse(amt < 0.019, 
+                         (exp(-0.936+0.698*amt)/(1+exp(-0.936+0.698*amt))),
+                       ifelse(amt < 0.064,  
+                              (exp(-0.936-0.802*amt)/(1+exp(-0.936-0.802*amt))),
+                              ifelse(amt < 0.174, 
+                                     (exp(-0.936 +1.601*amt)/(1+exp(-0.936 +1.601*amt))), 
+                                     (exp(-0.936+5.278*amt)/(1+exp(-0.936+5.278*amt)))))),
+         
+         prob10 =ifelse(amt < 0.019, 
+                        (exp(0.533+2.997*amt))/(1+exp(0.533+2.997*amt)),
+                        ifelse(amt < 0.064,  
+                               (exp(0.533-8.584*amt))/(1+exp(0.533-8.584*amt)),
+                               ifelse(amt < 0.174, 
+                                      (exp(0.5335 +12.440*amt))/(1+exp(0.5335 +12.440*amt)), 
+                                      (exp(0.533+36.589*amt))/(1+exp(0.533+36.589*amt))))))
+
+```
+
+2.1 Data Description
+Gathering data and data management was the 	most prevalent obstacle. Converting the data from its different formats to a usable sheet was a long and tedious procedure.
+
+The first data set collected was rain amount. This data was collected from the Space Weather Archive. The data set was the largest with over 3600 points across 10 years. It is important to note that there are clear misreadings in the data set and times with no data due to maintenance. These points did not seem to overlap many if any of the data points of interest. 
+
+The second data set collected was the successful launch records. The data was provided by Space Launch Delta 45 out of the Patrick Space Force Base Public Affairs office. This data set includes successful launches from 2010-2020 with launches from land-based pads and sea vessels. This also means the inclusion of intercontinental ballistic missiles was in the data set. The data were filtered to exclude the years 2010 and 2021. Then any launch that was not at LC-39, SLC-40, and SLC-41 was also excluded. There were 176 data points of interest after the data was filtered.
+
+![Map of Cape Canaveral Launch pads provided by reddit user u/TransitRanger_327](C:\Users\vanod\Pictures\newMap.png)
+
+The last data set collected was scrubbed and/or delayed launch records. This was the hardest data set to collect. Delayed and scrubbed launches are not as well documented nor are talked about. Fortunately, there is a website created by Jonathan C. McDowell with the collaboration of many colleagues who have access to databases not easily attained by the public gave access to a comprehensive list of orbit and suborbital space launches. This data was originally collected to find trends of interest such as scrubbed launches on Friday the $13^{ths}$ and if the moon phase happened to add to the chance of scrubs. This data set may have a problem in accuracy but not in false data but missed data points because it has been run through in compared to other data banks to check for consistency. The problem is the data is compared in one direction for consistency and not missing data. 
+
+Once successful, delayed, and scrubbed data was collected it was combined into one data set. For the purposes of this project, the launch categories are defined as follows: a successful launch is an on-time launch; a delayed launch is a launch that happened the same day as the scheduled on-time launch but was delayed for various reasons; a scrubbed launch is a launch that has been canceled or delayed past its original launch day.  There were 193 points of interest. 117 points of delayed launches, 29 points of successful launches, and 47 points of scrubbed launches. The launch category is split into three numerical terms. A 0 indicates that the launch was scrubbed, a 1 indicates the launch was successful, and a 2 indicates the launch was delayed. Some keynotes with the collected data is that there is a data point at 1.9 in of rain which sits far from the other points, upon further research this is a legitimate point. Also for this study a successful launch being defined as launch in the original launch window there are cases of a successful launch where the rocket had a failure during flight, this is still considered a successful launch here.
+
+	
+
+2.2 Models and Assumptions
+
+2.2.1 Logistic Regression
+The first thing we looked at was logistic regression with the outcomes of successful, scrubbed, and delayed launch. When making a logistic model we look at the probability of one event occurring in comparison to another event. For this study the base event was scrubbed launches. 
+$$
+\begin{equation}
+\ln\left(\frac{\pi_j}{\pi_c}\right)=\beta_0+\beta_1X_1+...+\beta_iX_i\tag{1}
+\end{equation}
+$$
+
+
+where $j=1,...,c-1$ and where $i = 1,..., k$ and $k$ is the number of predictors in the model
+
+  - $\pi_j$ is the event group
+  - $\pi_c$ is the reference group
+
+2.2.2 Spline Model
+Unlike a normal regression model that uses a constant slope to model the data we used a spline regression model to use different slopes at different ranges of indicators. This allowed us to better analyze the difference in probabilities at different ranges of rain amount. For this we created our knots, ranges, by splitting the data into quartiles.
+
+$$
+\begin{equation}
+y= \beta_0 + \beta_1X_1+...+\beta_iX_i\tag{2}
+\end{equation}
+$$
+$$X_1 = \left\{\begin{array}{ll}
+1 & \text{if  }x \in (a,b) \\
+0  & \text{otherwise}
+\end{array}
+\right.$$
+$$X_2 = \left\{\begin{array}{ll}
+1 & \text{if  }x \in (c,d) \\
+0  & \text{otherwise}
+\end{array}
+\right.$$
+
+$$\text{etc}$$
+
+2.2.3: Multinomial Logistic Spline Regression
+With a combination of the multinomail and spline regression we get our model of interest for this study. 
+
+$$
+\begin{equation}
+ln\left(\frac{\pi_j}{\pi_c}\right)= \beta_0 + \beta_1X_1+ \beta_2X_2+ \beta_3X_3+\beta_4X_4\tag{3}
+\end{equation}
+$$
+
+$p$ probability of event
+
+$X_i$ are the predictors
+
+$\beta_0$ is the regression intercept
+
+$\beta_i$ are the slope of predictor
+
+2.3 Analysis and Results
+The model
+
+```{r echo=FALSE}
+
+library(ggplot2)
+ggplot(data = joined, aes(amt, Lift_Off)) + 
+labs(y = "Launched", x = "Rain Amount (in)") +
+ggtitle("Rain and Launched Data")+
+geom_point()
+
+```
+Figure 2.1
+
+From this model we 
+
+```{r echo=FALSE}
+
+ggplot(data = joined, aes(x=amt)) + geom_histogram(binwidth=0.1)+
+labs(y = "Count", x = "Rain Amount (in)") +
+ggtitle("Rain Amount Histogram")
+```
+Figure 2.2 
+
+From figure 2.1 you can see there is a lot of data points at the zero rain amount. This caused and problem with creating a five number summary that was used to base the spline knots on. With the zeros in the data the $25^{th}$, $50^{th}$, and $75^{th}$ percentile were all zeros. With these knots the model essential became zero. Due to these we decided to remove the zeros when assessing the quartiles. The majority of these launches were related to the falcon 9 launch which is not surprising given the goal of this rocket. The CEO of SpaceX, Elon Musk, goal with this rocket is to be able to launch multiple times a day and currently they are on a very rapid schedule with a record rocket turn around time record of 27 days and record of 16 hours for launching two different rockets [8]. This adds plenty opportunities for scrubbed and delayed launches to stack up on no rain days adding to the excessive no rain data points. With the elimination of the zeros the new quartiles used were 0.019, 0.064, and 0.175 respectfully. The spline models created for this example have been made with with the reference point of scrubbed launches. 
+
+$$X_1= 0 \text{ to } 0.019$$
+$$X_2= 0.020 \text{ to }0.064$$
+$$X_3= 0.065 \text{ to }0.175$$
+
+$$X_4= x \ge 0.175$$
+
+$$
+\begin{equation}
+\ln\left(\frac{\hat{\pi}_{\text{scrub}}}{\hat{\pi}_{\text{launch}}}\right)=0.53+3.00X_1-8.58X_2+12.44X_3+36.59X_4\tag{4}
+\end{equation}
+$$
+
+Model 2.1
+
+Model 2.1 is looking at the probability of scrubbed versus launched given the rain amount. 
+
+```{r echo=FALSE}
+ggplot(data= test, aes(x= amt, y= prob10))+
+  geom_line()+
+  geom_point()+
+  geom_vline(xintercept = 0.019, linetype="dotted")+
+  geom_vline(xintercept = 0.064, linetype="dotted")+
+  geom_vline(xintercept = 0.175, linetype="dotted")+
+  labs(y = "Launch Probability", x = "Rain Amount (in)") +
+  ggtitle("Probability of Launch versus Scrubbed")
+```
+Figure 2.3
+
+In figure 2.3 the vertical dotted lines represent the different knots in the model. The first vertical line represents the knot at 0.019; the second vertical line represents 0.064; the third vertical line represents 0.175. From figure 2.3 we can see an interesting occurrence where the the chance of a scrubbed launch decrease from 0.019 inches to 0.064 inches of rain. There does not seem to be a responsible explanation for this other than just a lack of data between the points. Even with this sharp increase in the visual model, the chances of a successful launch with an presence of rain is still less than 50% with anything greater than 0.175 inches practically 0%.
+
+
+Probability of Scrubbed versus Launched
+
+Predictor |$\hat{\beta}$ | ($95$% CI)|
+|------|---|---|
+|$X_1$  $(0,0.019)$|$3.00$ |$(-6.85,  0.86)$|
+|$X_2$ $(0.02,0.064)$|$8.58$ |$(-4.54, 21.71)$|
+|$X_3$ $(0.065,0.175)$|$12.44$ |$(-41.41, 16.53)$|
+|$X_4$ $(>.175)$| $36.59$ |$(-104.88, 31.70)$|
+
+  - Partial F-test: p=0.338
+
+
+$$
+\begin{equation}
+\ln\left(\frac{\hat{\pi}_{\text{scrub}}}{\hat{\pi}_{\text{delay}}}\right)= -0.94+0.70X_1-0.80X_2+1.60X_3+5.28X_4\tag{5}
+\end{equation}
+$$ 
+
+Model 2.2
+
+Model 2.2 is looking at the probability of a delayed launch versus a scrubbed launch given the rain amount.
+
+```{r echo=FALSE}
+ggplot(data= test, aes(x= amt, y= prob20))+
+  geom_line()+
+  geom_point()+
+  geom_vline(xintercept = 0.019, linetype="dotted")+
+  geom_vline(xintercept = 0.064,linetype="dotted")+
+  geom_vline(xintercept = 0.175,linetype="dotted")+
+  labs(y = "Delayed Probability", x = "Rain Amount (in)") +
+  ggtitle("Probability of Delayed versus Scrubbed")
+```
+Figure 2.4
+
+In figure 2.4 the vertical dotted lines represent the different knots in the model. The first vertical line represents the knot at 0.019 inches; the second vertical line represents 0.064 inches; the third vertical line represents 0.175 inches. From figure 2.4 we can see the same interesting occurrence from figure 2.3 where there is an decrease probability from 0.019 inches to 0.064 inches of rain. Again there is no practical explanation of this phenomenon. This model does show that with light rain there is still a considerable chance that the rocket will launch that day, just of course delayed. Looking back at the ambitious goal of some of the rockets being launched makes sense because a goal is to prove the ability to do consistent launches. The likelihood of a scrubbed launch is significantly increase passed the 0.175 in mark, reminding us regardless of how much a company wants to launch, there are still limitations. 
+
+
+|Predictor |$\hat{\beta}$| ($95$% CI)|
+|------|---|---|
+|$X_1$ $(0,0.019)$ |$0.70$ | $(-2.30,0.91)$|
+|$X_2$ $(0.02,0.064)$|$0.80$| $(-3.91,5.52)$|
+|$X_3$ $(0.065,0.175)$|$1.60$| $(-8.48,5.28)$|
+|$X_4$ $(>.175)$|$5.28$| $(-20.20,9.64)$|
+
+  - Partial F-test: p=0.338

@@ -1,0 +1,26 @@
+# Bibliography/References
+
+[1]  NASA. (n.d.). Summary of launch weather criteria for Atlas V/Mars Science. (n.d.). Retrieved June 21, 2022, from https://www.nasa.gov/pdf/605813main_Atlas-V_MSL_Weather_Criteria.pdf 
+
+
+[2] NASA. (n.d.). Falcon 9 launch weather criteria. Retrieved June 21, 2022, from https://www.nasa.gov/pdf/649911main_051612_falcon9_weather_criteria.pdf 
+
+
+[3] NASA. (n.d.). Falcon 9 crew dragon launch weather criteria - NASA. Retrieved June 21, 2022, from https://www.nasa.gov/sites/default/files/atoms/files/falcon9_crewdragon_launch_weather_criteria_fact_sheet.pdf 
+
+
+[4] Spaceport Weather Archive https://kscweather.ksc.nasa.gov/ Accessed: 2021-12-21
+
+
+[5] JSR Launch Vehicle Database http://planet4589.org/space/lvdb/ Accessed: 2022-04-14
+
+
+[6] Back, L. E., & Bretherton, C. S. (2005). The relationship between wind speed and precipitation in the pacific itcz. Journal of Climate, 18(20), 4317–4328. https://doi.org/10.1175/jcli3519.1 
+
+
+[7] James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). 7.4 Regression Splines. In An introduction to statistical learning: With applications in R (pp. 295–301). essay, Springer. 
+
+
+[8] Brown, M. (2022, January 31). SpaceX's latest launch was delayed for a 4th time for the strangest reason. Inverse. Retrieved July 13, 2022, from https://www.inverse.com/innovation/spacex-obstacle 
+
+[9] Kingwell, J., Shimizu, J., Narita, K., Kawabata, H., &amp; Shimizu, I. (1991). Weather factors affecting rocket operations: A review and case history. Bulletin of the American Meteorological Society, 72(6), 778–793. https://doi.org/10.1175/1520-0477(1991)072&lt;0778:wfaroa&gt;2.0.co;2 

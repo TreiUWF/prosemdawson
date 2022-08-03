@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Data and Methods | An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral</title>
+  <meta name="description" content="Chapter 4 Data and Methods | An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Data and Methods | An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Data and Methods | An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral" />
+  
+  
+  
+
+<meta name="author" content="Trei Dawson" />
+
+
+<meta name="date" content="2022-08-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="conclusion.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">prosemdawson</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Table of Contents</a></li>
+<li class="chapter" data-level="2" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>2</b> Abstract</a></li>
+<li class="chapter" data-level="3" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>3</b> Introduction</a></li>
+<li class="chapter" data-level="4" data-path="data-and-methods.html"><a href="data-and-methods.html"><i class="fa fa-check"></i><b>4</b> Data and Methods</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="6" data-path="bibliographyreferences.html"><a href="bibliographyreferences.html"><i class="fa fa-check"></i><b>6</b> Bibliography/References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-and-methods" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Data and Methods<a href="data-and-methods.html#data-and-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>2.1 Data Description
+Gathering data and data management was the most prevalent obstacle. Converting the data from its different formats to a usable sheet was a long and tedious procedure.</p>
+<p>The first data set collected was rain amount. This data was collected from the Space Weather Archive. The data set was the largest with over 3600 points across 10 years. It is important to note that there are clear misreadings in the data set and times with no data due to maintenance. These points did not seem to overlap many if any of the data points of interest.</p>
+<p>The second data set collected was the successful launch records. The data was provided by Space Launch Delta 45 out of the Patrick Space Force Base Public Affairs office. This data set includes successful launches from 2010-2020 with launches from land-based pads and sea vessels. This also means the inclusion of intercontinental ballistic missiles was in the data set. The data were filtered to exclude the years 2010 and 2021. Then any launch that was not at LC-39, SLC-40, and SLC-41 was also excluded. There were 176 data points of interest after the data was filtered.</p>
+<div class="figure">
+<img src="C:/Users/vanod/Pictures/newMap.png" alt="" />
+<p class="caption">Map of Cape Canaveral Launch pads provided by reddit user u/TransitRanger_327</p>
+</div>
+<p>The last data set collected was scrubbed and/or delayed launch records. This was the hardest data set to collect. Delayed and scrubbed launches are not as well documented nor are talked about. Fortunately, there is a website created by Jonathan C. McDowell with the collaboration of many colleagues who have access to databases not easily attained by the public gave access to a comprehensive list of orbit and suborbital space launches. This data was originally collected to find trends of interest such as scrubbed launches on Friday the <span class="math inline">\(13^{ths}\)</span> and if the moon phase happened to add to the chance of scrubs. This data set may have a problem in accuracy but not in false data but missed data points because it has been run through in compared to other data banks to check for consistency. The problem is the data is compared in one direction for consistency and not missing data.</p>
+<p>Once successful, delayed, and scrubbed data was collected it was combined into one data set. For the purposes of this project, the launch categories are defined as follows: a successful launch is an on-time launch; a delayed launch is a launch that happened the same day as the scheduled on-time launch but was delayed for various reasons; a scrubbed launch is a launch that has been canceled or delayed past its original launch day. There were 193 points of interest. 117 points of delayed launches, 29 points of successful launches, and 47 points of scrubbed launches. The launch category is split into three numerical terms. A 0 indicates that the launch was scrubbed, a 1 indicates the launch was successful, and a 2 indicates the launch was delayed. Some keynotes with the collected data is that there is a data point at 1.9 in of rain which sits far from the other points, upon further research this is a legitimate point. Also for this study a successful launch being defined as launch in the original launch window there are cases of a successful launch where the rocket had a failure during flight, this is still considered a successful launch here.</p>
+<p>2.2 Models and Assumptions</p>
+<p>2.2.1 Logistic Regression
+The first thing we looked at was logistic regression with the outcomes of successful, scrubbed, and delayed launch. When making a logistic model we look at the probability of one event occurring in comparison to another event. For this study the base event was scrubbed launches.
+<span class="math display">\[
+\begin{equation}
+\ln\left(\frac{\pi_j}{\pi_c}\right)=\beta_0+\beta_1X_1+...+\beta_iX_i\tag{1}
+\end{equation}
+\]</span></p>
+<p>where <span class="math inline">\(j=1,...,c-1\)</span> and where <span class="math inline">\(i = 1,..., k\)</span> and <span class="math inline">\(k\)</span> is the number of predictors in the model</p>
+<ul>
+<li><span class="math inline">\(\pi_j\)</span> is the event group</li>
+<li><span class="math inline">\(\pi_c\)</span> is the reference group</li>
+</ul>
+<p>2.2.2 Spline Model
+Unlike a normal regression model that uses a constant slope to model the data we used a spline regression model to use different slopes at different ranges of indicators. This allowed us to better analyze the difference in probabilities at different ranges of rain amount. For this we created our knots, ranges, by splitting the data into quartiles.</p>
+<p><span class="math display">\[
+\begin{equation}
+y= \beta_0 + \beta_1X_1+...+\beta_iX_i\tag{2}
+\end{equation}
+\]</span>
+<span class="math display">\[X_1 = \left\{\begin{array}{ll}
+1 &amp; \text{if  }x \in (a,b) \\
+0  &amp; \text{otherwise}
+\end{array}
+\right.\]</span>
+<span class="math display">\[X_2 = \left\{\begin{array}{ll}
+1 &amp; \text{if  }x \in (c,d) \\
+0  &amp; \text{otherwise}
+\end{array}
+\right.\]</span></p>
+<p><span class="math display">\[\text{etc}\]</span></p>
+<p>2.2.3: Multinomial Logistic Spline Regression
+With a combination of the multinomail and spline regression we get our model of interest for this study.</p>
+<p><span class="math display">\[
+\begin{equation}
+ln\left(\frac{\pi_j}{\pi_c}\right)= \beta_0 + \beta_1X_1+ \beta_2X_2+ \beta_3X_3+\beta_4X_4\tag{3}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(p\)</span> probability of event</p>
+<p><span class="math inline">\(X_i\)</span> are the predictors</p>
+<p><span class="math inline">\(\beta_0\)</span> is the regression intercept</p>
+<p><span class="math inline">\(\beta_i\)</span> are the slope of predictor</p>
+<p>2.3 Analysis and Results
+The model</p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+Figure 2.1</p>
+<p>From this model we</p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+Figure 2.2</p>
+<p>From figure 2.1 you can see there is a lot of data points at the zero rain amount. This caused and problem with creating a five number summary that was used to base the spline knots on. With the zeros in the data the <span class="math inline">\(25^{th}\)</span>, <span class="math inline">\(50^{th}\)</span>, and <span class="math inline">\(75^{th}\)</span> percentile were all zeros. With these knots the model essential became zero. Due to these we decided to remove the zeros when assessing the quartiles. The majority of these launches were related to the falcon 9 launch which is not surprising given the goal of this rocket. The CEO of SpaceX, Elon Musk, goal with this rocket is to be able to launch multiple times a day and currently they are on a very rapid schedule with a record rocket turn around time record of 27 days and record of 16 hours for launching two different rockets [8]. This adds plenty opportunities for scrubbed and delayed launches to stack up on no rain days adding to the excessive no rain data points. With the elimination of the zeros the new quartiles used were 0.019, 0.064, and 0.175 respectfully. The spline models created for this example have been made with with the reference point of scrubbed launches.</p>
+<p><span class="math display">\[X_1= 0 \text{ to } 0.019\]</span>
+<span class="math display">\[X_2= 0.020 \text{ to }0.064\]</span>
+<span class="math display">\[X_3= 0.065 \text{ to }0.175\]</span></p>
+<p><span class="math display">\[X_4= x \ge 0.175\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\ln\left(\frac{\hat{\pi}_{\text{scrub}}}{\hat{\pi}_{\text{launch}}}\right)=0.53+3.00X_1-8.58X_2+12.44X_3+36.59X_4\tag{4}
+\end{equation}
+\]</span></p>
+<p>Model 2.1</p>
+<p>Model 2.1 is looking at the probability of scrubbed versus launched given the rain amount.</p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+Figure 2.3</p>
+<p>In figure 2.3 the vertical dotted lines represent the different knots in the model. The first vertical line represents the knot at 0.019; the second vertical line represents 0.064; the third vertical line represents 0.175. From figure 2.3 we can see an interesting occurrence where the the chance of a scrubbed launch decrease from 0.019 inches to 0.064 inches of rain. There does not seem to be a responsible explanation for this other than just a lack of data between the points. Even with this sharp increase in the visual model, the chances of a successful launch with an presence of rain is still less than 50% with anything greater than 0.175 inches practically 0%.</p>
+<p>Probability of Scrubbed versus Launched</p>
+<table>
+<thead>
+<tr class="header">
+<th>Predictor</th>
+<th><span class="math inline">\(\hat{\beta}\)</span></th>
+<th>(<span class="math inline">\(95\)</span>% CI)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X_1\)</span> <span class="math inline">\((0,0.019)\)</span></td>
+<td><span class="math inline">\(3.00\)</span></td>
+<td><span class="math inline">\((-6.85, 0.86)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X_2\)</span> <span class="math inline">\((0.02,0.064)\)</span></td>
+<td><span class="math inline">\(8.58\)</span></td>
+<td><span class="math inline">\((-4.54, 21.71)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(X_3\)</span> <span class="math inline">\((0.065,0.175)\)</span></td>
+<td><span class="math inline">\(12.44\)</span></td>
+<td><span class="math inline">\((-41.41, 16.53)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X_4\)</span> <span class="math inline">\((&gt;.175)\)</span></td>
+<td><span class="math inline">\(36.59\)</span></td>
+<td><span class="math inline">\((-104.88, 31.70)\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Partial F-test: p=0.338</li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\ln\left(\frac{\hat{\pi}_{\text{scrub}}}{\hat{\pi}_{\text{delay}}}\right)= -0.94+0.70X_1-0.80X_2+1.60X_3+5.28X_4\tag{5}
+\end{equation}
+\]</span></p>
+<p>Model 2.2</p>
+<p>Model 2.2 is looking at the probability of a delayed launch versus a scrubbed launch given the rain amount.</p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+Figure 2.4</p>
+<p>In figure 2.4 the vertical dotted lines represent the different knots in the model. The first vertical line represents the knot at 0.019 inches; the second vertical line represents 0.064 inches; the third vertical line represents 0.175 inches. From figure 2.4 we can see the same interesting occurrence from figure 2.3 where there is an decrease probability from 0.019 inches to 0.064 inches of rain. Again there is no practical explanation of this phenomenon. This model does show that with light rain there is still a considerable chance that the rocket will launch that day, just of course delayed. Looking back at the ambitious goal of some of the rockets being launched makes sense because a goal is to prove the ability to do consistent launches. The likelihood of a scrubbed launch is significantly increase passed the 0.175 in mark, reminding us regardless of how much a company wants to launch, there are still limitations.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Predictor</th>
+<th><span class="math inline">\(\hat{\beta}\)</span></th>
+<th>(<span class="math inline">\(95\)</span>% CI)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X_1\)</span> <span class="math inline">\((0,0.019)\)</span></td>
+<td><span class="math inline">\(0.70\)</span></td>
+<td><span class="math inline">\((-2.30,0.91)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X_2\)</span> <span class="math inline">\((0.02,0.064)\)</span></td>
+<td><span class="math inline">\(0.80\)</span></td>
+<td><span class="math inline">\((-3.91,5.52)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(X_3\)</span> <span class="math inline">\((0.065,0.175)\)</span></td>
+<td><span class="math inline">\(1.60\)</span></td>
+<td><span class="math inline">\((-8.48,5.28)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X_4\)</span> <span class="math inline">\((&gt;.175)\)</span></td>
+<td><span class="math inline">\(5.28\)</span></td>
+<td><span class="math inline">\((-20.20,9.64)\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Partial F-test: p=0.338</li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/TreiUWF/prosemdawson/edit/master/02-tears.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/TreiUWF/prosemdawson/blob/master/02-tears.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
