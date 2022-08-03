@@ -1580,7 +1580,6 @@ where $j=1,...,c-1$ and where $i = 1,..., k$ and $k$ is the number of predictors
   - $\beta_i$ is the slope of predictor $i$
 
 ## Analysis and Results
-The model
 
 ```{r echo=FALSE}
 
