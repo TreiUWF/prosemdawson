@@ -1,16 +1,12 @@
 --- 
-title: "An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral"
-author: "Trei Dawson"
-date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-# Title Page {-}
+# {-}
 <center>
-An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral\
-\
-\
-\
+<font size="+3">
+**An Example of Multinomial Logistic and Spline Regression: The Effect of Rain and Launching Rockets out of Cape Canaveral**\
+</font>
 \
 \
 \
@@ -29,7 +25,15 @@ Advisor: Dr Samantha Seals\
 \
 \
 \
+ An Undergraduate Proseminar 
+ 
+In Partial Fulfillment of the Degree of  
 
+Bachelor of Science in Mathematical Sciences 
+
+The University of West Florida 
+
+August 2022
 </center>
 
 
